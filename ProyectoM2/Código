@@ -1,0 +1,160 @@
+import json
+import os
+
+class GestorContactos:
+    def __init__(self, archivo='contactos.json'):
+        self.archivo = archivo
+        self.contactos = self.cargar_contactos()
+
+    def cargar_contactos(self):
+        """Carga los contactos desde el archivo JSON si existe."""
+        if not os.path.exists(self.archivo):
+            return []
+        try:
+            with open(self.archivo, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError):
+            return []
+
+    def guardar_contactos(self):
+        """Guarda la lista actual de contactos en el archivo JSON."""
+        try:
+            with open(self.archivo, 'w', encoding='utf-8') as f:
+                json.dump(self.contactos, f, indent=4, ensure_ascii=False)
+        except IOError as e:
+            print(f"Error al guardar: {e}")
+
+    def agregar_contacto(self, nombre, telefono, correo, direccion):
+        """Agrega un nuevo contacto si el teléfono no existe."""
+        # Verificar duplicados por teléfono
+        for c in self.contactos:
+            if c['telefono'] == telefono:
+                print(f"❌ Error: Ya existe un contacto con el teléfono {telefono}.")
+                return
+
+        nuevo_contacto = {
+            'nombre': nombre,
+            'telefono': telefono,
+            'correo': correo,
+            'direccion': direccion
+        }
+        self.contactos.append(nuevo_contacto)
+        self.guardar_contactos()
+        print(f"✅ Contacto '{nombre}' agregado exitosamente.")
+
+    def buscar_contactos(self, termino):
+        """Busca por nombre o teléfono y devuelve una lista de coincidencias."""
+        termino = termino.lower()
+        resultados = []
+        for c in self.contactos:
+            if termino in c['nombre'].lower() or termino in c['telefono']:
+                resultados.append(c)
+        return resultados
+
+    def eliminar_contacto(self, telefono):
+        """Elimina un contacto basado en su número de teléfono."""
+        inicial = len(self.contactos)
+        self.contactos = [c for c in self.contactos if c['telefono'] != telefono]
+        
+        if len(self.contactos) < inicial:
+            self.guardar_contactos()
+            print("🗑️ Contacto eliminado correctamente.")
+            return True
+        else:
+            print("⚠️ No se encontró ningún contacto con ese teléfono.")
+            return False
+
+    def editar_contacto(self, telefono_busqueda):
+        """Busca un contacto y permite editar sus campos."""
+        for c in self.contactos:
+            if c['telefono'] == telefono_busqueda:
+                print(f"\n✏️ Editando a: {c['nombre']}")
+                print("(Deja el campo vacío y presiona Enter para mantener el valor actual)")
+                
+                nuevo_nombre = input(f"Nombre [{c['nombre']}]: ") or c['nombre']
+                nuevo_telefono = input(f"Teléfono [{c['telefono']}]: ") or c['telefono']
+                nuevo_correo = input(f"Correo [{c['correo']}]: ") or c['correo']
+                nueva_direccion = input(f"Dirección [{c['direccion']}]: ") or c['direccion']
+
+                # Actualizar datos
+                c['nombre'] = nuevo_nombre
+                c['telefono'] = nuevo_telefono
+                c['correo'] = nuevo_correo
+                c['direccion'] = nueva_direccion
+                
+                self.guardar_contactos()
+                print("✅ Contacto actualizado exitosamente.")
+                return
+        print("⚠️ Contacto no encontrado.")
+
+    def listar_contactos(self):
+        """Muestra todos los contactos en formato tabla."""
+        if not self.contactos:
+            print("📭 La agenda está vacía.")
+            return
+        
+        print("\n" + "="*85)
+        print(f"{'NOMBRE':<20} | {'TELÉFONO':<15} | {'CORREO':<25} | {'DIRECCIÓN'}")
+        print("="*85)
+        for c in self.contactos:
+            print(f"{c['nombre']:<20} | {c['telefono']:<15} | {c['correo']:<25} | {c['direccion']}")
+        print("="*85 + "\n")
+
+# --- Interfaz de Consola (Menú Principal) ---
+
+def limpiar_pantalla():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def main():
+    gestor = GestorContactos()
+    
+    while True:
+        print("\n--- 📒 SISTEMA DE GESTIÓN DE CONTACTOS ---")
+        print("1. Agregar Contacto")
+        print("2. Buscar Contacto")
+        print("3. Editar Contacto")
+        print("4. Eliminar Contacto")
+        print("5. Ver Todos")
+        print("6. Salir")
+        
+        opcion = input("\nSeleccione una opción: ")
+
+        if opcion == '1':
+            nombre = input("Nombre: ")
+            telefono = input("Teléfono: ")
+            correo = input("Correo: ")
+            direccion = input("Dirección: ")
+            gestor.agregar_contacto(nombre, telefono, correo, direccion)
+            
+        elif opcion == '2':
+            termino = input("Ingrese nombre o teléfono a buscar: ")
+            resultados = gestor.buscar_contactos(termino)
+            if results := resultados:
+                print(f"\n🔍 Se encontraron {len(resultados)} coincidencias:")
+                for c in resultados:
+                    print(f"- {c['nombre']} ({c['telefono']}) | {c['correo']}")
+            else:
+                print("⚠️ No se encontraron coincidencias.")
+
+        elif opcion == '3':
+            tel = input("Ingrese el teléfono del contacto a editar: ")
+            gestor.editar_contacto(tel)
+
+        elif opcion == '4':
+            tel = input("Ingrese el teléfono del contacto a eliminar: ")
+            confirmacion = input("¿Está seguro? (s/n): ")
+            if confirmacion.lower() == 's':
+                gestor.eliminar_contacto(tel)
+
+        elif opcion == '5':
+            gestor.listar_contactos()
+
+        elif opcion == '6':
+            print("👋 ¡Hasta luego!")
+            break
+        
+        else:
+            print("Opción no válida.")
+
+if __name__ == "__main__":
+    main()
