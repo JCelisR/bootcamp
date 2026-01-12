@@ -1,0 +1,157 @@
+import json
+import os
+import re
+import uuid
+
+DATA_FILE = "contacts.json"
+
+class ContactManager:
+    def __init__(self, filename=DATA_FILE):
+        self.filename = filename
+        self.contacts = []
+        self.load()
+
+    def load(self):
+        if os.path.exists(self.filename):
+            with open(self.filename, "r", encoding="utf-8") as f:
+                try:
+                    self.contacts = json.load(f)
+                except json.JSONDecodeError:
+                    self.contacts = []
+        else:
+            self.contacts = []
+
+    def save(self):
+        with open(self.filename, "w", encoding="utf-8") as f:
+            json.dump(self.contacts, f, ensure_ascii=False, indent=2)
+
+    def validate_email(self, email):
+        return re.match(r"[^@]+@[^@]+\.[^@]+", email)
+
+    def validate_phone(self, phone):
+        digits = re.sub(r"\D", "", phone)
+        return len(digits) >= 7
+
+    def add_contact(self, name, phone, email, address):
+        if not name.strip():
+            raise ValueError("El nombre no puede estar vacío.")
+        if not self.validate_phone(phone):
+            raise ValueError("Teléfono inválido.")
+        if email and not self.validate_email(email):
+            raise ValueError("Correo inválido.")
+        contact = {
+            "id": str(uuid.uuid4()),
+            "name": name.strip(),
+            "phone": phone.strip(),
+            "email": email.strip(),
+            "address": address.strip()
+        }
+        self.contacts.append(contact)
+        self.save()
+        return contact
+
+    def find(self, query):
+        q = query.lower()
+        return [c for c in self.contacts if q in c["name"].lower() or q in re.sub(r"\D","",c["phone"])]
+
+    def get_by_id(self, cid):
+        for c in self.contacts:
+            if c["id"] == cid:
+                return c
+        return None
+
+    def update_contact(self, cid, **kwargs):
+        c = self.get_by_id(cid)
+        if not c:
+            raise KeyError("Contacto no encontrado.")
+        for k in ("name","phone","email","address"):
+            if k in kwargs and kwargs[k] is not None:
+                c[k] = kwargs[k].strip()
+        self.save()
+        return c
+
+    def delete_contact(self, cid):
+        before = len(self.contacts)
+        self.contacts = [c for c in self.contacts if c["id"] != cid]
+        if len(self.contacts) == before:
+            raise KeyError("Contacto no encontrado.")
+        self.save()
+
+    def list_contacts(self):
+        return sorted(self.contacts, key=lambda x: x["name"].lower())
+
+def prompt_input(prompt_text, default=""):
+    val = input(f"{prompt_text} [{default}]: ").strip()
+    return val if val else default
+
+def main():
+    mgr = ContactManager()
+    menu = """
+    1) Agregar contacto
+    2) Editar contacto
+    3) Eliminar contacto
+    4) Buscar contacto (por nombre o teléfono)
+    5) Listar todos
+    0) Salir
+    """
+    while True:
+        print(menu)
+        choice = input("Elige una opción: ").strip()
+        try:
+            if choice == "1":
+                name = input("Nombre: ")
+                phone = input("Teléfono: ")
+                email = input("Correo (opcional): ")
+                address = input("Dirección (opcional): ")
+                c = mgr.add_contact(name, phone, email, address)
+                print("Contacto agregado:", c["id"])
+            elif choice == "2":
+                q = input("Buscar por nombre o teléfono para editar: ")
+                results = mgr.find(q)
+                if not results:
+                    print("No se encontraron contactos.")
+                    continue
+                for i,c in enumerate(results,1):
+                    print(f"{i}) {c['name']} - {c['phone']} (id:{c['id']})")
+                sel = int(input("Selecciona número: ")) - 1
+                selc = results[sel]
+                name = prompt_input("Nombre", selc["name"])
+                phone = prompt_input("Teléfono", selc["phone"])
+                email = prompt_input("Correo", selc["email"])
+                address = prompt_input("Dirección", selc["address"])
+                mgr.update_contact(selc["id"], name=name, phone=phone, email=email, address=address)
+                print("Contacto actualizado.")
+            elif choice == "3":
+                q = input("Buscar por nombre o teléfono para eliminar: ")
+                results = mgr.find(q)
+                if not results:
+                    print("No se encontraron contactos.")
+                    continue
+                for i,c in enumerate(results,1):
+                    print(f"{i}) {c['name']} - {c['phone']} (id:{c['id']})")
+                sel = int(input("Selecciona número: ")) - 1
+                selc = results[sel]
+                confirm = input(f"Eliminar {selc['name']}? (s/N): ").lower()
+                if confirm == "s":
+                    mgr.delete_contact(selc["id"])
+                    print("Contacto eliminado.")
+            elif choice == "4":
+                q = input("Nombre o teléfono: ")
+                results = mgr.find(q)
+                if results:
+                    for c in results:
+                        print(f"{c['name']} | {c['phone']} | {c['email']} | {c['address']} (id:{c['id']})")
+                else:
+                    print("No se encontraron contactos.")
+            elif choice == "5":
+                for c in mgr.list_contacts():
+                    print(f"{c['name']} | {c['phone']} | {c['email']} | {c['address']}")
+            elif choice == "0":
+                break
+            else:
+                print("Opción inválida.")
+        except Exception as e:
+            print("Error:", e)
+
+if __name__ == "__main__":
+    main()

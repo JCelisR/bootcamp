@@ -1,5 +1,6 @@
 import json
 import os
+import csv
 
 class GestorContactos:
     def __init__(self, archivo='contactos.json'):
@@ -7,7 +8,6 @@ class GestorContactos:
         self.contactos = self.cargar_contactos()
 
     def cargar_contactos(self):
-        """Carga los contactos desde el archivo JSON si existe."""
         if not os.path.exists(self.archivo):
             return []
         try:
@@ -17,7 +17,6 @@ class GestorContactos:
             return []
 
     def guardar_contactos(self):
-        """Guarda la lista actual de contactos en el archivo JSON."""
         try:
             with open(self.archivo, 'w', encoding='utf-8') as f:
                 json.dump(self.contactos, f, indent=4, ensure_ascii=False)
@@ -25,8 +24,6 @@ class GestorContactos:
             print(f"Error al guardar: {e}")
 
     def agregar_contacto(self, nombre, telefono, correo, direccion):
-        """Agrega un nuevo contacto si el teléfono no existe."""
-        # Verificar duplicados por teléfono
         for c in self.contactos:
             if c['telefono'] == telefono:
                 print(f"❌ Error: Ya existe un contacto con el teléfono {telefono}.")
@@ -43,7 +40,6 @@ class GestorContactos:
         print(f"✅ Contacto '{nombre}' agregado exitosamente.")
 
     def buscar_contactos(self, termino):
-        """Busca por nombre o teléfono y devuelve una lista de coincidencias."""
         termino = termino.lower()
         resultados = []
         for c in self.contactos:
@@ -52,20 +48,16 @@ class GestorContactos:
         return resultados
 
     def eliminar_contacto(self, telefono):
-        """Elimina un contacto basado en su número de teléfono."""
         inicial = len(self.contactos)
         self.contactos = [c for c in self.contactos if c['telefono'] != telefono]
         
         if len(self.contactos) < inicial:
             self.guardar_contactos()
             print("🗑️ Contacto eliminado correctamente.")
-            return True
         else:
             print("⚠️ No se encontró ningún contacto con ese teléfono.")
-            return False
 
     def editar_contacto(self, telefono_busqueda):
-        """Busca un contacto y permite editar sus campos."""
         for c in self.contactos:
             if c['telefono'] == telefono_busqueda:
                 print(f"\n✏️ Editando a: {c['nombre']}")
@@ -76,7 +68,6 @@ class GestorContactos:
                 nuevo_correo = input(f"Correo [{c['correo']}]: ") or c['correo']
                 nueva_direccion = input(f"Dirección [{c['direccion']}]: ") or c['direccion']
 
-                # Actualizar datos
                 c['nombre'] = nuevo_nombre
                 c['telefono'] = nuevo_telefono
                 c['correo'] = nuevo_correo
@@ -88,7 +79,6 @@ class GestorContactos:
         print("⚠️ Contacto no encontrado.")
 
     def listar_contactos(self):
-        """Muestra todos los contactos en formato tabla."""
         if not self.contactos:
             print("📭 La agenda está vacía.")
             return
@@ -100,22 +90,39 @@ class GestorContactos:
             print(f"{c['nombre']:<20} | {c['telefono']:<15} | {c['correo']:<25} | {c['direccion']}")
         print("="*85 + "\n")
 
-# --- Interfaz de Consola (Menú Principal) ---
+    def exportar_csv(self, nombre_archivo='contactos_exportados.csv'):
+        """Exporta la lista de contactos a un archivo CSV compatible con Excel."""
+        if not self.contactos:
+            print("⚠️ No hay contactos para exportar.")
+            return
 
-def limpiar_pantalla():
-    os.system('cls' if os.name == 'nt' else 'clear')
+        try:
+            with open(nombre_archivo, 'w', newline='', encoding='utf-8-sig') as f:
+                writer = csv.writer(f, delimiter=';') 
+                
+                writer.writerow(['Nombre', 'Teléfono', 'Correo', 'Dirección'])
+                
+                for c in self.contactos:
+                    writer.writerow([c['nombre'], c['telefono'], c['correo'], c['direccion']])
+            
+            print(f"✅ Archivo generado exitosamente: {nombre_archivo}")
+            print("   (Puedes abrirlo directamente con Excel)")
+        except IOError as e:
+            print(f"❌ Error al exportar: {e}")
+
 
 def main():
     gestor = GestorContactos()
     
     while True:
-        print("\n--- 📒 SISTEMA DE GESTIÓN DE CONTACTOS ---")
+        print("\n--- 📒 SISTEMA DE GESTIÓN DE CONTACTOS V2 ---")
         print("1. Agregar Contacto")
         print("2. Buscar Contacto")
         print("3. Editar Contacto")
         print("4. Eliminar Contacto")
         print("5. Ver Todos")
-        print("6. Salir")
+        print("6. Exportar a Excel (CSV)")
+        print("7. Salir")
         
         opcion = input("\nSeleccione una opción: ")
 
@@ -129,7 +136,7 @@ def main():
         elif opcion == '2':
             termino = input("Ingrese nombre o teléfono a buscar: ")
             resultados = gestor.buscar_contactos(termino)
-            if results := resultados:
+            if resultados:
                 print(f"\n🔍 Se encontraron {len(resultados)} coincidencias:")
                 for c in resultados:
                     print(f"- {c['nombre']} ({c['telefono']}) | {c['correo']}")
@@ -150,6 +157,9 @@ def main():
             gestor.listar_contactos()
 
         elif opcion == '6':
+            gestor.exportar_csv()
+
+        elif opcion == '7':
             print("👋 ¡Hasta luego!")
             break
         
