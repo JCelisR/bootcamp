@@ -1,0 +1,103 @@
+import numpy as np
+
+# ---------------------------
+# 0. Configuración inicial
+# ---------------------------
+np.random.seed(42)
+
+# ---------------------------
+# 1. Carga y estructuración de datos
+# ---------------------------
+precios = np.round(100 + np.random.randn(5, 5).cumsum(axis=1), 2)
+
+print("1.Precios (5 acciones x 5 días):")
+print(precios)
+print(f"Dimensiones: {precios.shape}\n")
+
+# ---------------------------
+# 2. Análisis y transformación de datos
+# ---------------------------
+
+# 2.A Estadísticas por acción 
+media_por_accion = precios.mean(axis=1)
+maximo_por_accion = precios.max(axis=1)
+minimo_por_accion = precios.min(axis=1)
+
+print("2.A Estadísticas por acción:")
+print("Media por acción:", np.round(media_por_accion, 3))
+print("Máximo por acción:", maximo_por_accion)
+print("Mínimo por acción:", minimo_por_accion, "\n")
+
+# 2.B Variación porcentual diaria 
+variacion_pct_diaria = (precios[:, 1:] - precios[:, :-1]) / precios[:, :-1] * 100
+print("2.B Variación porcentual diaria (%) (5 acciones x 4 días):")
+print(np.round(variacion_pct_diaria, 4))
+print(f"Dimensiones: {variacion_pct_diaria.shape}\n")
+
+# 2.C Transformaciones matemáticas
+log_precios = np.log(precios)
+
+zscore_global = (precios - precios.mean()) / precios.std()
+exp_escalada = np.exp(zscore_global)
+
+print("2.C1 Logaritmo natural de precios (np.log):")
+print(np.round(log_precios, 3), "\n")
+
+print("2.C2 Exponencial aplicada sobre z-score global (ejemplo de transformación):")
+print(np.round(exp_escalada, 3), "\n")
+
+# 2.D Normalización por acción (dos alternativas)
+min_por_fila = precios.min(axis=1, keepdims=True)  
+max_por_fila = precios.max(axis=1, keepdims=True)
+denom = max_por_fila - min_por_fila
+
+denom_safe = np.where(denom == 0, 1, denom)
+normalized_minmax = (precios - min_por_fila) / denom_safe
+
+# Z-score por fila (usando std por fila; también protegemos std==0)
+std_por_fila = precios.std(axis=1, keepdims=True)
+std_safe = np.where(std_por_fila == 0, 1, std_por_fila)
+normalized_zscore = (precios - precios.mean(axis=1, keepdims=True)) / std_safe
+
+print("2.D1 Normalización Min-Max por acción (0-1):")
+print(np.round(normalized_minmax, 3), "\n")
+
+print("2.D2 Normalización Z-score por acción (media 0, std 1):")
+print(np.round(normalized_zscore, 3), "\n")
+
+# ---------------------------
+# 3. Optimización y selección de datos
+# ---------------------------
+
+# 3.A Indexación avanzada
+accion_idx, dia_idx = 1, 3
+valor_puntual = precios[accion_idx, dia_idx]
+print(f"3.A Precio de la acción {accion_idx} en el día {dia_idx}: {valor_puntual}\n")
+
+# Indexación booleana
+promedio_general = precios.mean()
+precios_superiores = precios[precios > promedio_general]
+print(f"Promedio general de la matriz: {promedio_general:.3f}")
+print("Precios superiores al promedio general:")
+print(precios_superiores, "\n")
+
+# 3.B Broadcasting: operaciones sin bucles
+factores = np.array([1.01, 0.99, 1.02, 1.00, 0.98])  
+
+precios_ajustados = precios * factores[:, np.newaxis]
+print("3.B Precios ajustados por factor (broadcasting):")
+print(np.round(precios_ajustados, 2), "\n")
+
+retorno_total_pct = (precios[:, -1] / precios[:, 0] - 1) * 100
+print("Retorno total por acción (%) (vectorizado):")
+print(np.round(retorno_total_pct, 3), "\n")
+
+# ---------------------------
+# 4. Comparación breve con métodos sin NumPy
+# ---------------------------
+# - Sin NumPy: se usarían listas anidadas y bucles for para calcular medias, máximos, variaciones, etc.
+#   Esto implica más líneas de código, mayor complejidad y peor rendimiento para matrices grandes.
+# - Con NumPy: operaciones vectorizadas y funciones en C reducen overhead de Python y mejoran velocidad.
+
+if __name__ == "__main__":
+    print("Ejecución completada. Revisa las salidas impresas para cada bloque de análisis.")
