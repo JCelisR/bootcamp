@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿id;name;phone;email;address
 8cf409f5-0a57-4aec-97c2-d06619dcf42a;Pedro Muñoz;56471;pedromunoz@gmail.com;Valdivia
 bf6aa55a-14fc-43a9-be99-57f105335f70;María González;912345678;mariagonzalez@example.com;Santiago
@@ -9,3 +10,16 @@ d14a2b52-7581-4c7e-be46-db893afe3d1c;Diego Fernández;912444555;diego.fernandez@
 993e4000-4e04-4b30-8b42-84a82cf585dd;Laura Castillo;912555666;laura.castillo@mail.com;Concepcion
 da411b0f-9aa9-4893-a5de-4a627e9e60ef;Andrés Silva;912666777;andres.silva@example.cl;Iquique
 d4638004-9adc-4e2f-9937-dceab84c8390;Natalia Rojas;912777888;natalia.rojas@gmail.com;Rancagua
+=======
+﻿id;name;phone;email;address
+8cf409f5-0a57-4aec-97c2-d06619dcf42a;Pedro Muñoz;56471;pedromunoz@gmail.com;Valdivia
+bf6aa55a-14fc-43a9-be99-57f105335f70;María González;912345678;mariagonzalez@example.com;Santiago
+afe58b31-488a-49a7-94cf-778c9f8e6677;Juan Pérez;987654321;juan.perez@mail.com;Las Condes
+c8142c91-530a-4e05-b7cf-930f43ebbfb5;Ana López;912000111;ana.lopez@example.cl;Puerto Montt
+60dba1ee-7a79-4082-a8ea-ba1a92555262;Carlos Ramírez;912222333;carlos.ramirez@mail.cl;Temuco
+f89ac9f6-d41d-4486-af3b-0d82bd68137f;Sofía Torres;912333444;sofia.torres@gmail.com;Arica
+d14a2b52-7581-4c7e-be46-db893afe3d1c;Diego Fernández;912444555;diego.fernandez@example.com;Punta Arenas
+993e4000-4e04-4b30-8b42-84a82cf585dd;Laura Castillo;912555666;laura.castillo@mail.com;Concepcion
+da411b0f-9aa9-4893-a5de-4a627e9e60ef;Andrés Silva;912666777;andres.silva@example.cl;Iquique
+d4638004-9adc-4e2f-9937-dceab84c8390;Natalia Rojas;912777888;natalia.rojas@gmail.com;Rancagua
+>>>>>>> 7bf85e70f945777610c2384495e7964a94690199
