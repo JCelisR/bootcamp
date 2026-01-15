@@ -57,10 +57,14 @@ class GestorContactos:
         else:
             print("⚠️ No se encontró ningún contacto con ese teléfono.")
 
-    def editar_contacto(self, telefono_busqueda):
+def editar_contacto(self, telefono_busqueda):
         for c in self.contactos:
             if c.get('telefono') == telefono_busqueda:
+<<<<<<< HEAD
                 print(f"\n✏️ Editando a: {c.get('nombre','')}")
+=======
+                print(f"\n✏️ Editando a: {c['nombre']}")
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                 print("(Deja el campo vacío y presiona Enter para mantener el valor actual)")
 
                 nuevo_nombre = input(f"Nombre [{c.get('nombre','')}]: ") or c.get('nombre','')
@@ -68,6 +72,10 @@ class GestorContactos:
                 nuevo_correo = input(f"Correo [{c.get('correo','')}]: ") or c.get('correo','')
                 nueva_direccion = input(f"Dirección [{c.get('direccion','')}]: ") or c.get('direccion','')
 
+<<<<<<< HEAD
+=======
+                # Evitar duplicar teléfono al editar: si el nuevo teléfono ya existe en otro contacto, avisar
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                 if nuevo_telefono != c.get('telefono',''):
                     for otro in self.contactos:
                         if otro is not c and otro.get('telefono') == nuevo_telefono and nuevo_telefono != '':
@@ -96,7 +104,7 @@ class GestorContactos:
             print(f"{c.get('nombre',''):<20} | {c.get('telefono',''):<15} | {c.get('correo',''):<25} | {c.get('direccion','')}")
         print("="*85 + "\n")
 
-    def exportar_csv(self, nombre_archivo='contactos_exportados.csv'):
+ def exportar_csv(self, nombre_archivo='contactos_exportados.csv'):
         """Exporta la lista de contactos a un archivo CSV compatible con Excel."""
         if not self.contactos:
             print("⚠️ No hay contactos para exportar.")
@@ -105,9 +113,18 @@ class GestorContactos:
         try:
             with open(nombre_archivo, 'w', newline='', encoding='utf-8-sig') as f:
                 writer = csv.writer(f, delimiter=';')
+<<<<<<< HEAD
                 writer.writerow(['Nombre', 'Teléfono', 'Correo', 'Dirección'])
                 for c in self.contactos:
                     writer.writerow([c.get('nombre',''), c.get('telefono',''), c.get('correo',''), c.get('direccion','')])
+=======
+
+                writer.writerow(['Nombre', 'Teléfono', 'Correo', 'Dirección'])
+
+                for c in self.contactos:
+                    writer.writerow([c.get('nombre',''), c.get('telefono',''), c.get('correo',''), c.get('direccion','')])
+
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
             print(f"✅ Archivo generado exitosamente: {nombre_archivo}")
             print("   (Puedes abrirlo directamente con Excel)")
         except IOError as e:
@@ -131,14 +148,24 @@ class GestorContactos:
         try:
             with open(nombre_archivo, 'r', encoding='utf-8-sig', newline='') as f:
                 reader = csv.reader(f, delimiter=delimiter)
+<<<<<<< HEAD
+=======
+                # Leer encabezado y mapear índices de columnas
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                 try:
                     encabezado = next(reader)
                 except StopIteration:
                     print("⚠️ El archivo CSV está vacío.")
                     return
 
+<<<<<<< HEAD
                 cols = [c.strip().lower() for c in encabezado]
 
+=======
+                # Normalizar nombres de columnas
+                cols = [c.strip().lower() for c in encabezado]
+                # Buscar índices
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                 def idx_of(names):
                     for name in names:
                         if name in cols:
@@ -146,11 +173,19 @@ class GestorContactos:
                     return None
 
                 idx_nombre = idx_of(['nombre', 'name'])
+<<<<<<< HEAD
                 idx_telefono = idx_of(['telefono', 'teléfono', 'phone'])
+=======
+                idx_telefono = idx_of(['telefono', 'teléfono', 'phone', 'telefono'])
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                 idx_correo = idx_of(['correo', 'email', 'e-mail', 'mail'])
                 idx_direccion = idx_of(['direccion', 'dirección', 'address'])
 
                 for fila in reader:
+<<<<<<< HEAD
+=======
+                    # Evitar filas vacías
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                     if not any(cell.strip() for cell in fila):
                         continue
 
@@ -159,8 +194,15 @@ class GestorContactos:
                     correo = fila[idx_correo].strip() if idx_correo is not None and idx_correo < len(fila) else ''
                     direccion = fila[idx_direccion].strip() if idx_direccion is not None and idx_direccion < len(fila) else ''
 
+<<<<<<< HEAD
                     telefono_norm = telefono.replace(' ', '')
 
+=======
+                    # Normalizar teléfono (quitar espacios)
+                    telefono_norm = telefono.replace(' ', '')
+
+                    # Comprobar duplicados: primero por teléfono si existe
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                     es_duplicado = False
                     if telefono_norm:
                         for c in self.contactos:
@@ -168,6 +210,10 @@ class GestorContactos:
                                 es_duplicado = True
                                 break
                     else:
+<<<<<<< HEAD
+=======
+                        # Si no hay teléfono, usar nombre+correo como clave de respaldo
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
                         clave = (nombre.lower(), correo.lower())
                         for c in self.contactos:
                             if (c.get('nombre','').lower(), c.get('correo','').lower()) == clave and (nombre or correo):
@@ -193,7 +239,10 @@ class GestorContactos:
             print(f"✅ Importación finalizada. Añadidos: {añadidos}. Saltados por duplicado: {saltados}.")
         except Exception as e:
             print(f"❌ Error al importar CSV: {e}")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8119239924098c63be9553d7fe05162205042cf7
 
 def main():
     gestor = GestorContactos()
