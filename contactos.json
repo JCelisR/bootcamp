@@ -1,146 +1,62 @@
 [
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+   {
+        "nombre": "Pedro Muñoz",
+        "telefono": "925856471",
+        "correo": "pedromunoz@gmail.com",
+        "direccion": "Valdivia"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "María González",
+        "telefono": "912345678",
+        "correo": "mariagonzalez@example.com",
+        "direccion": "Santiago"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Juan Pérez",
+        "telefono": "987654321",
+        "correo": "juan.perez@mail.com",
+        "direccion": "Las Condes"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Ana López",
+        "telefono": "912000111",
+        "correo": "ana.lopez@example.cl",
+        "direccion": "Puerto Montt"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Carlos Ramírez",
+        "telefono": "912222333",
+        "correo": "carlos.ramirez@mail.cl",
+        "direccion": "Temuco"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Sofía Torres",
+        "telefono": "912333444",
+        "correo": "sofia.torres@gmail.com",
+        "direccion": "Arica"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Diego Fernández",
+        "telefono": "912444555",
+        "correo": "diego.fernandez@example.com",
+        "direccion": "Punta Arenas"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Laura Castillo",
+        "telefono": "912555666",
+        "correo": "laura.castillo@mail.com",
+        "direccion": "Concepcion"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Andrés Silva",
+        "telefono": "912666777",
+        "correo": "andres.silva@example.cl",
+        "direccion": "Iquique"
     },
     {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
-    },
-    {
-        "nombre": "",
-        "telefono": "",
-        "correo": "",
-        "direccion": ""
+        "nombre": "Natalia Rojas",
+        "telefono": "912777888",
+        "correo": "natalia.rojas@gmail.com",
+        "direccion": "Rancagua"
     }
 ]
