@@ -1,0 +1,103 @@
+# limpieza_usuarios_simple.py
+# Ejecutar en VSCode: python limpieza_usuarios_simple.py
+# Si usas Colab, el script pedirá subir el archivo si no existe en la ruta.
+
+import os
+import pandas as pd
+import numpy as np
+
+# --- Ajusta esta ruta según tu sistema Windows ---
+ruta = r'C:\Users\jceli\Bootcamp\Modulo 3\usuarios.csv'
+salida = r'C:\Users\jceli\Bootcamp\Modulo 3\usuarios_limpios.csv'
+
+def cargar_en_colab_si_necesario(ruta_local):
+    """
+    Si estamos en Google Colab y el archivo no existe en la ruta,
+    permite subirlo desde la interfaz de Colab.
+    """
+    try:
+        import google.colab
+        from google.colab import files
+    except Exception:
+        return ruta_local  # No estamos en Colab
+
+    if os.path.exists(ruta_local):
+        return ruta_local
+
+    print("Archivo no encontrado en la ruta local. Por favor sube el archivo CSV desde Colab.")
+    uploaded = files.upload()  # abre diálogo de subida
+    # Tomar el primer archivo subido y guardarlo con el nombre esperado
+    if uploaded:
+        nombre_subido = list(uploaded.keys())[0]
+        destino = os.path.join('/content', nombre_subido)
+        print(f"Archivo subido: {nombre_subido} -> {destino}")
+        return destino
+    return ruta_local
+
+def limpiar_dataset(ruta_entrada, ruta_salida):
+    if not os.path.exists(ruta_entrada):
+        raise FileNotFoundError(f"No se encontró el archivo: {ruta_entrada}")
+
+    # 1) Cargar datos
+    df = pd.read_csv(ruta_entrada, encoding='utf-8', sep=',')
+
+    # 2) Convertir columna fecha a datetime
+    if 'fecha' in df.columns:
+        df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')
+    else:
+        raise KeyError("La columna 'fecha' no existe en el CSV.")
+
+    # 3) Reemplazar valores vacíos en columnas de texto con "Desconocido"
+    text_cols = df.select_dtypes(include='object').columns.tolist()
+    df[text_cols] = df[text_cols].fillna('Desconocido')
+
+    # 4) Asegurar que 'monto' sea numérico y reemplazar NaN con la mediana
+    if 'monto' in df.columns:
+        df['monto'] = pd.to_numeric(df['monto'], errors='coerce')
+        mediana = df['monto'].median(skipna=True)
+        df['monto'] = df['monto'].fillna(mediana)
+    else:
+        raise KeyError("La columna 'monto' no existe en el CSV.")
+
+    # 5) Ordenar por fecha (ascendente) y monto (descendente)
+    df = df.sort_values(by=['fecha', 'monto'], ascending=[True, False], ignore_index=True)
+
+    # 6) Crear columna de categorías según el monto
+    # Aquí usamos percentiles para adaptar los límites al dataset
+    q33 = df['monto'].quantile(0.33)
+    q66 = df['monto'].quantile(0.66)
+    bins = [-np.inf, q33, q66, np.inf]
+    labels = ['Bajo', 'Medio', 'Alto']
+    df['categoria_monto'] = pd.cut(df['monto'], bins=bins, labels=labels)
+
+    # 7) Renombrar columnas para mayor claridad (solo si existen)
+    rename_map = {
+        'fecha': 'fecha_venta',
+        'monto': 'monto_clp',
+        'producto': 'producto_nombre',
+        'region': 'region',
+        'vendedor': 'vendedor_nombre',
+        'canal': 'canal_venta'
+    }
+    rename_map = {k: v for k, v in rename_map.items() if k in df.columns}
+    df = df.rename(columns=rename_map)
+
+    # 8) Verificación rápida
+    print("Resumen después de la limpieza:")
+    print(df.info())
+    print("\nPrimeras 10 filas:")
+    print(df.head(10))
+
+    # 9) Guardar resultado
+    df.to_csv(ruta_salida, index=False, encoding='utf-8')
+    print(f"\nArchivo limpio guardado en: {ruta_salida}")
+
+if __name__ == '__main__':
+    # Si estamos en Colab y el archivo no existe, permitir subirlo
+    ruta_usable = cargar_en_colab_si_necesario(ruta)
+    # Si Colab devolvió una ruta en /content, actualizar la salida para guardarla allí
+    if ruta_usable.startswith('/content'):
+        salida = os.path.join('/content', os.path.basename(salida))
+
+    limpiar_dataset(ruta_usable, salida)
+    

@@ -1,0 +1,8 @@
+ID,Nombre,Edad,Ciudad,Salario,Fecha,Estado
+1,Ana,29,Santiago,45000,2024-11-01,activo
+2,Beto,?,Valdivia,52000,2024-10-15,activo
+3,Camila,34,,60000,2024-09-20,inactivo
+4,Diego,28,Concepción,NaN,2024-08-05,activo
+4,Diego,28,Concepción,NaN,2024-08-05,activo
+5,,45,Temuco,70000,not_a_date,activo
+6,Elena,27,Valdivia,48000,2024-07-12,activo

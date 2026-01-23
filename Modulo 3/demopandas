@@ -1,0 +1,72 @@
+import pandas as pd
+
+def main():
+    # 1. Crear una Serie con al menos 5 elementos y un índice personalizado
+    datos = [10, 20, 30, 40, 50]
+    indice = ['a', 'b', 'c', 'd', 'e']
+    serie = pd.Series(datos, index=indice)
+    print("1. Serie original:")
+    print(serie)
+    print()
+
+
+    # 2. Operación aritmética sobre la Serie y aplicar un filtro
+    # Ejemplo: multiplicar por 2 y filtrar valores mayores a 60
+    serie_mul = serie * 2
+    filtro = serie_mul > 60
+    serie_filtrada = serie_mul[filtro]
+    print("2. Serie multiplicada por 2:")
+    print(serie_mul)
+    print()
+    print("2. Serie multiplicada filtrada (> 60):")
+    print(serie_filtrada)
+    print()
+
+    # 3. Crear un DataFrame desde un diccionario con al menos 3 columnas y 5 filas
+    data_dict = {
+        'nombre': ['Ana', 'Luis', 'María', 'Pedro', 'Sofía'],
+        'edad': [28, 34, 22, 45, 30],
+        'ciudad': ['Valdivia', 'Santiago', 'Concepción', 'Valparaíso', 'Temuco']
+    }
+    df = pd.DataFrame(data_dict)
+    print("3. DataFrame creado desde diccionario:")
+    print(df)
+    print()
+
+    # 4. Seleccionar una columna, una fila y un subconjunto de datos
+    # Seleccionar columna 'edad'
+    columna_edad = df['edad']
+    print("4. Columna 'edad':")
+    print(columna_edad)
+    print()
+
+    # Seleccionar fila por posición (por ejemplo la fila 2, índice 2)
+    fila_2 = df.iloc[2]
+    print("4.Fila en posición 2")
+    print(fila_2)
+    print()
+
+    # Subconjunto: filas 1 a 3 y columnas 'nombre' y 'ciudad'
+    subconjunto = df.loc[1:3, ['nombre', 'ciudad']]
+    print("4.Subconjunto (filas 1 a 3, columnas 'nombre' y 'ciudad'):")
+    print(subconjunto)
+    print()
+
+    # 5. Cargar un archivo CSV y mostrar las primeras y últimas 5 filas
+    ruta_csv = r'C:\Users\jceli\Bootcamp\Modulo 3\demopandas.csv'
+    
+    try:
+        df_csv = pd.read_csv(ruta_csv,sep='\t') 
+        print(f"5.1 Primeras 5 filas de {ruta_csv}:")
+        print(df_csv.head(5))
+        print()
+        print(f"5.2 Últimas 5 filas de {ruta_csv}:")
+        print(df_csv.tail(5))
+        print()
+    except FileNotFoundError:
+        print(f"No se encontró el archivo CSV en: {ruta_csv}")
+        print("Cambia 'ruta_csv' por la ruta correcta y vuelve a ejecutar.")
+        print()
+
+if __name__ == "__main__":
+    main()
