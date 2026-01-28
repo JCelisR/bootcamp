@@ -1,0 +1,11 @@
+id,fecha,cliente,monto,categoria,estado
+1,2025-01-01,A,100.0,retail,pagado
+2,2025-01-02,B,200.5,corporate,pendiente
+3,2025-01-03,C,,retail,pagado
+4,2025-01-04,D,150.0,retail,pagado
+4,2025-01-04,D,150.0,retail,pagado
+5,2025-01-05,E,300.0,corporate,pendiente
+6,2025-01-06,F,250.0,,pagado
+7,,G,120.0,retail,pagado
+8,2025-01-08,H,80.0,retail,anulado
+9,2025-01-09,,60.0,corporate,pendiente
