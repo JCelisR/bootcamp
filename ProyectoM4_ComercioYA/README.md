@@ -4,7 +4,7 @@
 Este proyecto aplica técnicas de Análisis Exploratorio de Datos (EDA) para entender el comportamiento de los clientes de una tienda en línea.
 
 ## Contenido del Repositorio
-- `1_Analisis_Inicial.ipynb`: Notebook con el desarrollo de las 6 clases.
+- `Proyecto_Modulo4.ipynb`: Notebook con el desarrollo de las 6 clases.
 - `comercio_ya_datos.csv`: Dataset utilizado.
 - `grafico_final_comercioya.png`: Visualización destacada.
 
