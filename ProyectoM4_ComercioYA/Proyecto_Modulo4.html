@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>1_Analisis_Inicial</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Proyecto_Modulo4</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7817,7 +7817,7 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="c1"># 1. Creamos los datos</span>
+<span class="c1"># 1. Creamos los datos para poder analizar.</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">500</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
@@ -7829,60 +7829,32 @@ a.anchor-link {
     <span class="s1">'Devoluciones'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 <span class="p">}</span>
 
-<span class="n">df_nuevo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-<span class="c1"># 2. Insertar los errores a propósito para la Clase 1 (IDA)</span>
-<span class="n">df_nuevo</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Edad'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
-<span class="n">df_nuevo</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'Monto_Total'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">50.0</span>
+<span class="c1"># Insertar los errores a propósito para la Clase 1 (IDA)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Edad'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'Monto_Total'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">50.0</span>
 
-<span class="c1"># 3. GUARDAR EL ARCHIVO (Asegurando que no haya errores de formato)</span>
-<span class="n">df_nuevo</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'comercio_ya_datos.csv'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"¡Archivo 'comercio_ya_datos.csv' creado correctamente"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2ecc7ddf">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># A. Ver tipos de variables</span>
+<span class="c1"># 2. Distinguir variables cuantitativas y categóricas</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"--- Información del Dataset ---"</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 
-<span class="c1"># Geero es categórica y Monto_total es numérica.</span>
+<span class="c1"># Género es categórica y Monto_total es cuantitativa.</span>
 
-<span class="c1"># B. Detectar valores inconsistentes</span>
+<span class="c1"># 3. Detectar valores inconsistentes o faltantes (IDA)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- Valores Faltantes por Columna ---"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- Resumen Estadístico para detectar errores ---"</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=28ca44bd">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Buscamos valores fuera de lo común</span>
+
+<span class="c1"># Buscamos valores fuera de lo común</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Edad máxima detectada:"</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Edad'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Monto mínimo detectado:"</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
 
-<span class="c1"># Filtramos los datos para limpiar el dataset</span>
-<span class="n">df_limpio</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Edad'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="c1"># GUARDAR EL ARCHIVO (Asegurando que no haya errores de formato)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'comercio_ya_datos.csv'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Tamaño del dataset original:"</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Tamaño del dataset limpio:"</span><span class="p">,</span> <span class="n">df_limpio</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"¡Archivo 'comercio_ya_datos.csv' creado correctamente"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7895,7 +7867,10 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Hallazgo-clase-1:">Hallazgo clase 1:<a class="anchor-link" href="#Hallazgo-clase-1:">¶</a></h3><p>Se detectó un valor atípico de 150 años en la variable Edad y un monto que es negativo. Procederé a limpiarlos.</p>
+<ul>
+<li>Hallazgo clase 1:
+Se detectó un valor atípico de 150 años en la variable Edad y un monto que es negativo. Procederé a limpiarlos.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -7907,10 +7882,12 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Filtramos el dataset para eliminar los errores que detectamos en el IDA</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 4. Filtramos el dataset para eliminar los errores que detectamos en el IDA</span>
 <span class="c1"># Nos quedamos solo con edades menores a 100 y montos mayores a 0</span>
 <span class="n">df_limpio</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Edad'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Tamaño del dataset original:"</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Tamaño del dataset limpio:"</span><span class="p">,</span> <span class="n">df_limpio</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Registros originales: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Registros tras la limpieza: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_limpio</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Variable 'df_limpio' creada y lista para la Clase 2."</span><span class="p">)</span>
@@ -7926,7 +7903,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Clase-2:-Estad%C3%ADstica-Descriptiva-y-Visualizaci%C3%B3n-Inicial">Clase 2: Estadística Descriptiva y Visualización Inicial<a class="anchor-link" href="#Clase-2:-Estad%C3%ADstica-Descriptiva-y-Visualizaci%C3%B3n-Inicial">¶</a></h2>
+<h2 id="Clase-2:-Estad%C3%ADstica-Descriptiva.">Clase 2: Estadística Descriptiva.<a class="anchor-link" href="#Clase-2:-Estad%C3%ADstica-Descriptiva.">¶</a></h2>
 </div>
 </div>
 </div>
@@ -7943,16 +7920,21 @@ a.anchor-link {
 <span class="n">mediana</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
 <span class="n">moda</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">desviacion</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">varianza</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"--- Análisis de Monto Total ---"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Media (Promedio): </span><span class="si">{</span><span class="n">media</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mediana (Punto medio): </span><span class="si">{</span><span class="n">mediana</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Moda (Valor más repetido): </span><span class="si">{</span><span class="n">moda</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Desviación Estándar (Dispersión): </span><span class="si">{</span><span class="n">desviacion</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Varianza (Variabilidad): </span><span class="si">{</span><span class="n">varianza</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="c1"># 2. Cuartiles (Medidas de posición)</span>
+<span class="c1"># 2. Cuartiles y percentiles (Medidas de posición) </span>
 <span class="n">cuartiles</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+<span class="n">percentiles</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">])</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Cuartiles:</span><span class="se">\n</span><span class="si">{</span><span class="n">cuartiles</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Percentiles:</span><span class="se">\n</span><span class="si">{</span><span class="n">percentiles</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7972,17 +7954,17 @@ a.anchor-link {
 <span class="c1"># Configuración estética</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
 
-<span class="c1"># Crear una figura con dos subplots (uno al lado del otro)</span>
+<span class="c1"># 3. Generar histograma y boxplot para visualizar la distrioutliersbución y detectar posibles </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-<span class="c1"># Subplot 1: Histograma (Para ver la distribución)</span>
+<span class="c1"># Subplot 1: Histograma (distribución)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"skyblue"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Distribución de Montos Totales'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Monto ($)'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Frecuencia'</span><span class="p">)</span>
 
-<span class="c1"># Subplot 2: Boxplot (Para identificar valores atípicos/Outliers)</span>
+<span class="c1"># Subplot 2: Boxplot (valores atípicos/Outliers)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgreen"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Boxplot de Montos Totales'</span><span class="p">)</span>
@@ -7991,7 +7973,7 @@ a.anchor-link {
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># Calculamos el Rango Intercuartílico (IQR) para detectar outliers</span>
+<span class="c1"># 4. Calculamos el Rango Intercuartílico (IQR) para detectar outliers</span>
 <span class="n">Q1</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
 <span class="n">Q3</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
 <span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
@@ -8014,10 +7996,15 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Interpretaci%C3%B3n-visual:">Interpretación visual:<a class="anchor-link" href="#Interpretaci%C3%B3n-visual:">¶</a></h3><ul>
-<li><p><strong>Histograma:</strong> Observamos que la mayoría de las compras en ComercioYA se concentran entre los $100 y $400. La distribución parece ser bastante uniforme/simétrica.</p>
+<ul>
+<li>Hallazgos clase 2:</li>
+</ul>
+<ul>
+<li><p><strong>Distribución:</strong> El histograma muestra una distribución bastante uniforme/simétrica de la cual observamos que la mayoría de las compras en ComercioYA se concentran entre los $100 y $400.</p>
 </li>
 <li><p><strong>Boxplot:</strong> No se observan valores atípicos significativos después de la limpieza inicial, lo que indica una base de clientes con montos de compra consistentes.</p>
+</li>
+<li><p><strong>Impacto</strong>: Aunque estos valores son reales, su presencia eleva la media. Para decisiones de marketing masivo, nos basaremos más en la mediana (${mediana:.2f}) para no dejarnos engañar por los valores extremos.</p>
 </li>
 </ul>
 </div>
@@ -8042,43 +8029,25 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_limpio</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'Visitas_Web'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Monto_Total'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Relación entre Visitas Web y Monto Total'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Número de Visitas'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Monto Gastado ($)'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># Seleccionamos solo las columnas numéricas relevantes</span>
-<span class="n">matriz_corr</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[[</span><span class="s1">'Edad'</span><span class="p">,</span> <span class="s1">'Monto_Total'</span><span class="p">,</span> <span class="s1">'Visitas_Web'</span><span class="p">,</span> <span class="s1">'Devoluciones'</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Matriz de Correlación (Pearson):"</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">matriz_corr</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f8eadf46">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Creamos el Mapa de Calor (Heatmap)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">matriz_corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">".2f"</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Mapa de Calor de Correlaciones - ComercioYA'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># Construimos un Scatterplot para visualizar la relación más importante</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 1. Construir scatterplot para analizar la relación más importante.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_limpio</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'Visitas_Web'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Monto_Total'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'coral'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Relación entre Visitas Web y Monto Total Gastado'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Cantidad de Visitas'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Monto Total ($)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 1. Construir matriz de correlación. Seleccionamos solo las columnas numéricas relevantes</span>
+<span class="c1"># 2. Al usar .corr(), Pandas calcula Pearson por defecto. Los valores están en el Heatmap.</span>
+<span class="n">matriz_corr</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[[</span><span class="s1">'Edad'</span><span class="p">,</span> <span class="s1">'Monto_Total'</span><span class="p">,</span> <span class="s1">'Visitas_Web'</span><span class="p">,</span> <span class="s1">'Devoluciones'</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Matriz de Correlación (Pearson):"</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">matriz_corr</span><span class="p">)</span>
+
+<span class="c1"># 3. Creamos el Mapa de Calor (Heatmap)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">matriz_corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">".2f"</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Mapa de Calor de Correlaciones - ComercioYA'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -8093,8 +8062,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Hallazgos-de-la-Clase-3:">Hallazgos de la Clase 3:<a class="anchor-link" href="#Hallazgos-de-la-Clase-3:">¶</a></h3><ul>
-<li><strong>Interpretación del Coeficiente (R):</strong> En el Mapa de Calor, buscamos valores cercanos a 1 o -1.</li>
-<li><strong>Relación Clave:</strong> Se observa la relación entre <code>Visitas_Web</code> y <code>Monto_Total</code>. Si el valor es bajo (ej. menor a 0.3), concluimos que en ComercioYA no siempre el que más visita la web es el que más gasta.</li>
+<li><strong>Interpretación del Coeficiente (R):</strong> En el Mapa de Calor, buscamos la relación <code>Visitas_Web</code>y <code>Monto_Total</code>. Eso nos da un valor {R}= 0,01. Es una correlación nula o extremadamente débil. Un valor tan cercano a 0 indica que no existe una relación lineal entre la cantidad de veces que un cliente visita la web y el dinero que termina gastando. Con esto concluimos que en ComercioYA no siempre el que más visita la web es el que más gasta.</li>
 <li><strong>Correlación Espuria:</strong> Se decidió no incluir la variable <code>ID_Cliente</code> en la matriz, ya que cualquier correlación numérica con un número de identificación sería casual y no lógica (espuria).</li>
 </ul>
 </div>
@@ -8119,9 +8087,11 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span>
 
-<span class="c1"># Definimos nuestras variables</span>
+<span class="c1"># 1. Aplicar modelos con statsmodels. Definimos nuestras variables</span>
 <span class="c1"># Y es lo que queremos predecir (Variable Dependiente): Monto_Total</span>
 <span class="c1"># X es la variable que usamos para predecir (Variable Independiente): Visitas_Web</span>
 
@@ -8131,42 +8101,15 @@ a.anchor-link {
 <span class="c1"># Statsmodels necesita que añadamos una constante (interceptor) manualmente</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
-<span class="c1"># Creamos el modelo</span>
-<span class="n">modelo</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># Mostramos el resumen de resultados</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d8f2fd1c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span>
-
-<span class="c1"># 1. Preparamos las variables (X: predictora, Y: a predecir)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[[</span><span class="s1">'Visitas_Web'</span><span class="p">]]</span> 
-<span class="n">Y</span> <span class="o">=</span> <span class="n">df_limpio</span><span class="p">[</span><span class="s1">'Monto_Total'</span><span class="p">]</span>
-
-<span class="c1"># 2. Añadimos una constante (necesario para statsmodels)</span>
-<span class="n">X_const</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="c1"># 3. Ajustamos el modelo (OLS: Mínimos Cuadrados Ordinarios)</span>
+<span class="c1"># Ajustamos el modelo (OLS: Mínimos Cuadrados Ordinarios)</span>
+<span class="n">X_const</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> 
 <span class="n">modelo</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X_const</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
-<span class="c1"># 4. Obtenemos las predicciones para calcular el error</span>
+<span class="c1"># Obtenemos las predicciones para calcular el error y mostramos el resumen de resultados</span>
 <span class="n">predicciones</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_const</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
 
-<span class="c1"># 5. Calculamos las métricas que pide el proyecto</span>
+<span class="c1"># 2. Calculamos las métricas del archivo</span>
 <span class="n">r2</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">rsquared</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">predicciones</span><span class="p">)</span>
 <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">predicciones</span><span class="p">)</span>
@@ -8178,6 +8121,13 @@ a.anchor-link {
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error Absoluto Medio (MAE): </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- Resumen detallado del modelo ---"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># 4. Visualizar la regresión con Seaborn</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_limpio</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'Visitas_Web'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Monto_Total'</span><span class="p">,</span> 
+            <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="s2">"red"</span><span class="p">},</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">'alpha'</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Visualización del Modelo de Regresión: Visitas vs Monto'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -8190,7 +8140,10 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Hallazgos-de-la-Clase-4:">Hallazgos de la Clase 4:<a class="anchor-link" href="#Hallazgos-de-la-Clase-4:">¶</a></h3><p><strong>Significancia de los Predictores:</strong> Al observar el <code>P&gt;|t|</code> en el resumen de statsmodels, si es mayor a 0.05, significa que la variable no es un buen predictor.</p>
+<ul>
+<li>Hallazgos de la Clase 4:</li>
+</ul>
+<p><strong>Significancia de los Predictores:</strong> Al observar el <code>P&gt;|t|</code> en el resumen de statsmodels, si es mayor a 0.05, significa que la variable no es un buen predictor.</p>
 <p><strong>Interpretación de R2:</strong> El valor de R-cuadrado nos indica qué porcentaje de la variación del gasto se explica por las visitas. En este caso, al ser datos simulados aleatoriamente, el R2 suele ser muy bajo (cercano a 0), lo que indica que para ComercioYA las visitas no son el único factor que determina el gasto.</p>
 <p><strong>Métricas de Error:</strong> El MAE nos indica que, en promedio, nuestras predicciones se alejan del valor real.</p>
 </div>
@@ -8203,7 +8156,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Clase-5:-AN%C3%81LISIS-VISUAL-DE-DATOS-CON-SEABORN">Clase 5: ANÁLISIS VISUAL DE DATOS CON SEABORN<a class="anchor-link" href="#Clase-5:-AN%C3%81LISIS-VISUAL-DE-DATOS-CON-SEABORN">¶</a></h2>
+<h2 id="Clase-5:-An%C3%A1lisis-visual-de-datos">Clase 5: Análisis visual de datos<a class="anchor-link" href="#Clase-5:-An%C3%A1lisis-visual-de-datos">¶</a></h2>
 </div>
 </div>
 </div>
@@ -8218,28 +8171,47 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="c1"># 1. Violinplot: Monto Total segmentado por Género</span>
+<span class="c1"># 1. Crear gráficos según proyecto.</span>
+<span class="c1"># a. Violinplot: Monto Total segmentado por Género</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_limpio</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'Genero'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Monto_Total'</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">"muted"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Distribución del Monto por Género (Violin Plot)'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 2. Jointplot: Relación entre Visitas y Monto con histogramas en los ejes</span>
+<span class="c1"># b. Jointplot: Relación entre Visitas y Monto con histogramas en los ejes</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_limpio</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'Visitas_Web'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Monto_Total'</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"hex"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#4CB391"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 3. Pairplot: Todas las relaciones numéricas de un vistazo</span>
+<span class="c1"># c. Pairplot: Todas las relaciones numéricas de un vistazo</span>
 <span class="c1"># Usamos 'hue' para diferenciar por Género visualmente</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df_limpio</span><span class="p">[[</span><span class="s1">'Edad'</span><span class="p">,</span> <span class="s1">'Monto_Total'</span><span class="p">,</span> <span class="s1">'Visitas_Web'</span><span class="p">,</span> <span class="s1">'Genero'</span><span class="p">]],</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'Genero'</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">"husl"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># 4. FacetGrid: Comparación de Edad vs Monto según si hubo Devolución o no</span>
+<span class="c1"># d. FacetGrid: Comparación de Edad vs Monto según si hubo Devolución o no</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">df_limpio</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"Devoluciones"</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="s2">"Edad"</span><span class="p">,</span> <span class="s2">"Monto_Total"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.7</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=42148abc">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li><p>Hallazgos de Clase 5:</p>
+<p>Distribución (Violinplot): El gráfico de violín muestra que el gasto medio es similar entre géneros, pero el género ej: Femenino, presenta una mayor concentración de compras en el rango de los $300.</p>
+<p>Densidad (Jointplot): La visualización hexagonal revela que la mayor densidad de clientes se agrupa en el centro del gráfico, confirmando que no hay una relación lineal fuerte.</p>
+<p>Relaciones (Pairplot): Se confirma visualmente que las variables no están fuertemente correlacionadas, ya que no se observan patrones o nubes de puntos con direcciones claras.</p>
+<p>Comportamiento (FacetGrid): Al segmentar por devoluciones, se observa que los clientes que devuelven productos no pertenecen a un rango de edad específico, lo que sugiere que el problema no es demográfico.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -8332,11 +8304,14 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Conclusiones-Generales-del-Proyecto---ComercioYA">Conclusiones Generales del Proyecto - ComercioYA<a class="anchor-link" href="#Conclusiones-Generales-del-Proyecto---ComercioYA">¶</a></h2><ol>
+<h2 id="Conclusiones-del-An%C3%A1lisis-EDA---ComercioYA">Conclusiones del Análisis EDA - ComercioYA<a class="anchor-link" href="#Conclusiones-del-An%C3%A1lisis-EDA---ComercioYA">¶</a></h2><ol>
+<li><strong>Perfil del Cliente:</strong> La distribución de edad se concentra principalmente en [20 - 70], lo que sugiere un público objetivo joven/adulto.</li>
 <li><strong>Calidad de Datos (IDA):</strong> Se identificaron y corrigieron valores atípicos imposibles (Edad 150, Montos negativos), asegurando la integridad del análisis.</li>
 <li><strong>Comportamiento del Cliente:</strong> El gasto promedio ronda los $250, sin diferencias drásticas entre géneros.</li>
+<li><strong>Impacto del Género:</strong> No existen diferencias significativas en el gasto promedio entre géneros, por lo que las campañas pueden ser generales.</li>
+<li><strong>Eficacia de la Web:</strong> Dado que la correlación entre visitas y monto es baja (visto en Clase 3 y 4), se recomienda optimizar la tasa de conversión en lugar de solo buscar tráfico masivo.</li>
 <li><strong>Análisis de Correlación:</strong> No se detectó una relación fuerte entre el número de visitas y el monto gastado. Esto sugiere que el marketing debe enfocarse en la <em>calidad</em> de la visita más que en la <em>cantidad</em>.</li>
-<li><strong>Modelo de Regresión:</strong> El modelo lineal confirmó que las visitas web por sí solas no son un buen predictor del gasto total (R2 bajo), lo que invita a explorar otras variables como la satisfacción o el tiempo en página.</li>
+<li><strong>Resumen Técnico:</strong> El modelo de regresión lineal y las visualizaciones avanzadas confirman que el comportamiento de compra es multivariado y no depende de una sola métrica.</li>
 </ol>
 </div>
 </div>
