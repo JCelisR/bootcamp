@@ -1,0 +1,56 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+
+# Generar datos sintéticos
+# Simulamos 100 variables para 500 clientes
+np.random.seed(42)
+data = np.random.rand(500, 100)
+df = pd.DataFrame(data, columns=[f'var_{i}' for i in range(100)])
+
+print(f"Dataset cargado con {df.shape[1]} columnas.")
+
+# 2. Limpieza y Escalado de Datos
+df_clean = df.dropna()
+scaler = StandardScaler()
+df_scaled = scaler.fit_transform(df_clean)
+
+print("Datos limpiados y escalados correctamente.")
+
+# 3. Aplicación de PCA y t-SNE
+
+# A. PCA (Análisis de Componentes Principales)
+pca = PCA(n_components=2, random_state=42)
+pca_results = pca.fit_transform(df_scaled)
+df_pca = pd.DataFrame(pca_results, columns=['PC1', 'PC2'])
+
+# B. t-SNE
+tsne = TSNE(n_components=2, random_state=42, perplexity=30, learning_rate=200, max_iter=1000)
+tsne_results = tsne.fit_transform(df_scaled)
+df_tsne = pd.DataFrame(tsne_results, columns=['tSNE1', 'tSNE2'])
+
+# 4. Visualización Comparativa
+fig, ax = plt.subplots(1, 2, figsize=(16, 6))
+
+# Gráfico PCA
+sns.scatterplot(data=df_pca, x='PC1', y='PC2', ax=ax[0], s=40, alpha=0.7)
+ax[0].set_title('PCA 2D')
+ax[0].set_xlabel('PC1')
+ax[0].set_ylabel('PC2')
+
+# Gráfico t-SNE
+sns.scatterplot(data=df_tsne, x='tSNE1', y='tSNE2', ax=ax[1], color='orange', s=40, alpha=0.7)
+ax[1].set_title('t-SNE 2D')
+ax[1].set_xlabel('t-SNE 1')
+ax[1].set_ylabel('t-SNE 2')
+
+plt.tight_layout()
+plt.show()
+
+# Guardar figuras
+fig.savefig('pca_vs_tsne.png', dpi=150)
+print("Visualización comparativa de PCA y t-SNE generada correctamente.")
